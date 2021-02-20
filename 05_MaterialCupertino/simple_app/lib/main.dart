@@ -51,6 +51,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.red,
+              ),
+            )
+          ],
+        ),
+      ),
       body: TabBarView(
         controller: _tabController,
         children: [
