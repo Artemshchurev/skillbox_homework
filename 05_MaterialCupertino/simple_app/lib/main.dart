@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.red,
+                backgroundImage: NetworkImage('https://picsum.photos/200/400'),
               ),
             )
           ],
