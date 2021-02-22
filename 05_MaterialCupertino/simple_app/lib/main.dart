@@ -28,12 +28,18 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
 
-  final List<Map<String,dynamic>> bottomBarItems = [
+  final List<Map<String, dynamic>> bottomBarItems = [
     {'title': 'Photo', 'icon': Icons.home},
     {'title': 'Chat', 'icon': Icons.chat},
     {'title': 'Albums', 'icon': Icons.album},
+  ];
+  final List<Map<String, dynamic>> drawerItems = [
+    {'title': 'Home', 'icon': Icons.home},
+    {'title': 'Profile', 'icon': Icons.person_rounded},
+    {'title': 'Images', 'icon': Icons.album},
   ];
   bool _isPaid = false;
   TabController _tabController;
@@ -53,14 +59,40 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
       drawer: Drawer(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DrawerHeader(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.red,
-                backgroundImage: NetworkImage('https://picsum.photos/200/400'),
+            Column(
+              children: [
+                DrawerHeader(
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.red,
+                    backgroundImage: NetworkImage(
+                      'https://picsum.photos/200/200'
+                    ),
+                  ),
+                ),
+                Column(
+                  children: drawerItems.map((item) {
+                    return ListTile(
+                      leading: Icon(item['icon']),
+                      title: Text(item['title']),
+                      trailing: Icon(Icons.chevron_right),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            Padding(
+                padding: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RaisedButton(onPressed: () {}, child: Text('Вход'),),
+                  RaisedButton(onPressed: () {}, child: Text('Регистрация'))
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -69,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         children: [
           Container(
             child: Center(
-               child: _isPaid ? Text('Заказ успешно оплачен') : null,
+              child: _isPaid ? Text('Заказ успешно оплачен') : null,
             ),
           ),
           Container(
@@ -87,38 +119,39 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             _tabController.index = index;
           });
         },
-        items: bottomBarItems.map((item) => BottomNavigationBarItem(icon: Icon(item['icon']), label: item['title'])).toList(),
+        items: bottomBarItems.map((item) => BottomNavigationBarItem(
+            icon: Icon(item['icon']), label: item['title'])).toList(),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
-          Icons.add
+            Icons.add
         ),
         onPressed: () {
           showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 200,
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      leading: const Icon(Icons.payment),
-                      title: const Text('Сумма'),
-                      trailing: const Text('200 руб'),
-                    ),
-                    RaisedButton(
-                      onPressed: () {
-                        setState(() {
-                          _isPaid = true;
-                        });
-                      },
-                      child: Text('Оплатить'),
-                    )
-                  ],
-                ),
-              );
-            }
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: 200,
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: const Icon(Icons.payment),
+                        title: const Text('Сумма'),
+                        trailing: const Text('200 руб'),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          setState(() {
+                            _isPaid = true;
+                          });
+                        },
+                        child: Text('Оплатить'),
+                      )
+                    ],
+                  ),
+                );
+              }
           );
         },
       ),
