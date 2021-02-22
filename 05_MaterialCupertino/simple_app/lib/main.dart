@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage>
   ];
   final List<Map<String, dynamic>> drawerItems = [
     {'title': 'Home', 'icon': Icons.home},
-    {'title': 'Profile', 'icon': Icons.person_rounded},
+    {'title': 'Profile', 'icon': Icons.person},
     {'title': 'Images', 'icon': Icons.album},
   ];
   bool _isPaid = false;
@@ -56,6 +56,35 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            ),
+          ),
+        ],
+      ),
+      endDrawer: Drawer(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.red,
+                backgroundImage: NetworkImage(
+                    'https://picsum.photos/180/180'
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text('Username'),
+              ),
+            ],
+          ),
+        ),
       ),
       drawer: Drawer(
         child: Column(
