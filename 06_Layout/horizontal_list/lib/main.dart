@@ -47,12 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          bool _isHorizontal = constraints.constrainWidth() > 500;
+          final bool _isHorizontal = constraints.constrainWidth() > 500;
 
           return Container(
-            height: 170,
+            height: _isHorizontal ? null : 170,
             child: ListView(
-              scrollDirection: Axis.horizontal,
+              scrollDirection: _isHorizontal ? Axis.vertical : Axis.horizontal,
               children: [
                 ..._colors.map((color) => Padding(
                   padding: EdgeInsets.all(10),
