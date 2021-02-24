@@ -32,13 +32,34 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Text field styled'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+              style: TextStyle(
+                color: Colors.purple,
+              ),
+              decoration: InputDecoration(
+                helperText: 'Поле для поиска заметок',
+                hintText: 'Введите значение',
+                labelText: 'Search',
+                labelStyle: TextStyle(
+                  color: Colors.purple,
+                ),
+                suffixIcon: Icon(Icons.search, color: Colors.purple,),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.purple, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.purple, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
