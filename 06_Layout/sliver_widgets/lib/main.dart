@@ -41,13 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       Image.network(
                         'https://picsum.photos/500/500',
                         fit: BoxFit.cover,
-                        width: constraints.maxWidth,
+                        width: constraints.constrainWidth(),
                       ),
                       Positioned(
                         child: Container(
                           color: Colors.black.withOpacity(0.5),
-                          width: constraints.maxWidth,
-                          height: constraints.maxHeight,
+                          width: constraints.constrainWidth(),
+                          height: constraints.constrainHeight(),
                         ),
                         top: 0,
                         left: 0,
