@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:albums_route/routes.dart';
+import 'package:albums_route/screens/albums_screen.dart';
+import 'package:albums_route/screens/home_screen.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'fetch_file.dart';
@@ -52,8 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            ListTile(title: Text('Home'),),
-            ListTile(title: Text('Albums'),)
+            GestureDetector(
+              child: ListTile(title: Text('Home')),
+              onTap: () {
+                Navigator.of(context).pushNamed(HomeScreen.routeName);
+              },
+            ),
+            GestureDetector(
+              child: ListTile(title: Text('Albums')),
+              onTap: () {
+                Navigator.of(context).pushNamed(AlbumsScreen.routeName);
+              },
+            )
           ],
         ),
       ),
