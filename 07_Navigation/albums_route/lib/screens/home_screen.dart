@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'albums_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   static String routeName = '/';
 
@@ -12,8 +14,21 @@ class HomeScreen extends StatelessWidget {
       drawer: Drawer(
         child: Column(
           children: [
-            ListTile(title: Text('Home'),),
-            ListTile(title: Text('Albums'),)
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: GestureDetector(
+                child: ListTile(title: Text('Home')),
+                onTap: () {
+                  Navigator.of(context).pushNamed(HomeScreen.routeName);
+                },
+              ),
+            ),
+            GestureDetector(
+              child: ListTile(title: Text('Albums')),
+              onTap: () {
+                Navigator.of(context).pushNamed(AlbumsScreen.routeName);
+              },
+            )
           ],
         ),
       ),
