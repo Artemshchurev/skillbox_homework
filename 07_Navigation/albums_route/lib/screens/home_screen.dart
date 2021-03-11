@@ -16,11 +16,13 @@ class HomeScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 30),
-              child: GestureDetector(
-                child: ListTile(title: Text('Home')),
-                onTap: () {
-                  Navigator.of(context).pushNamed(HomeScreen.routeName);
-                },
+              child: ListTile(
+                title: Text(
+                  'Home',
+                  style: TextStyle(
+                    color: Theme.of(context).accentColor
+                  ),
+                ),
               ),
             ),
             GestureDetector(
