@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FutureBuilder<String>(
         future: fetchFileFromAssets('assets/somefile.txt'),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(snapshot.connectionState);
           switch (snapshot.connectionState) {
             case ConnectionState.none:
               return Center(
