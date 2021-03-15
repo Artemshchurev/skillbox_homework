@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,22 +29,69 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _myController = TextEditingController();
+  String _fileContent = '';
+
+  @override
+  void dispose() {
+    _myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: 200,
+                      child: TextField(
+                        controller: _myController,
+                        style: TextStyle(),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder()
+                        ),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _loadFile(),
+                    child: Text('Найти'),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(_fileContent),
             ),
           ],
         ),
-      ),
+      )
     );
+  }
+
+  void _loadFile()  {
+    rootBundle
+        .loadString(_myController.text)
+        .then((value) {
+          setState(() {
+            _fileContent = value;
+          });
+    }).catchError((error) {
+      setState(() {
+        _fileContent = 'Файл не найден';
+      });
+    });
+
   }
 }
