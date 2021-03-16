@@ -41,57 +41,87 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      width: 200,
-                      child: TextField(
-                        controller: _myController,
-                        style: TextStyle(),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder()
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 60,
+                        child: TextField(
+                          controller: _myController,
+                          style: TextStyle(),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                topLeft: Radius.circular(10)
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 2,
+                              )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  topLeft: Radius.circular(10)
+                                ),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 2,
+                                )
+                            )
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => _loadFile(),
-                    child: Text('Найти'),
-                  )
-                ],
+                    ButtonTheme(
+                      height: 60,
+                      child: RaisedButton(
+                        onPressed: () => _loadFile(),
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          )
+                        ),
+                        child: Text(
+                          'Найти',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(_fileContent),
-            ),
-          ],
-        ),
-      )
-    );
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(_fileContent),
+              ),
+            ],
+          ),
+        ));
   }
 
-  void _loadFile()  {
-    rootBundle
-        .loadString(_myController.text)
-        .then((value) {
-          setState(() {
-            _fileContent = value;
-          });
+  void _loadFile() {
+    rootBundle.loadString(_myController.text).then((value) {
+      setState(() {
+        _fileContent = value;
+      });
     }).catchError((error) {
       setState(() {
         _fileContent = 'Файл не найден';
       });
     });
-
   }
 }
