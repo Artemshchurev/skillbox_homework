@@ -28,6 +28,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<String> _future;
+
+  @override
+  void initState() {
+    _future = fetchFileFromAssets('assets/somefile.txt');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Catch error'),
       ),
       body: FutureBuilder<String>(
-        future: fetchFileFromAssets('assets/somefile.txt'),
+        future: _future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.connectionState);
           switch (snapshot.connectionState) {
