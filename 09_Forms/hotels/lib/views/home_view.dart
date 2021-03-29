@@ -57,6 +57,11 @@ class _HomeViewState extends State<HomeView> {
               return Center(child: CircularProgressIndicator());
               break;
             case ConnectionState.done:
+              if (snapshot.hasError)
+                return Center(
+                  child: Text('Контент временно недоступен')
+                );
+
               return CustomScrollView(
                 primary: false,
                 slivers: <Widget>[

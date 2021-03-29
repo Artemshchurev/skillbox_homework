@@ -42,6 +42,11 @@ class _HotelViewState extends State<HotelView> {
               return Center(child: CircularProgressIndicator());
               break;
             case ConnectionState.done:
+              if (snapshot.hasError)
+                return Center(
+                    child: Text('Контент временно недоступен')
+                );
+
               Hotel hotel = snapshot.data;
               return ListView(
                 children: [

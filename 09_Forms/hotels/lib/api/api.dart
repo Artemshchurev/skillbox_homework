@@ -12,5 +12,8 @@ Future<List<HotelPreview>> fetchHotels() async {
 
 Future<Hotel> fetchHotel(String id) async {
   var response = await http.get(Uri.parse('https://run.mocky.io/v3/$id'));
+  if (jsonDecode(response.body)['message'] != null) {
+    throw Exception(jsonDecode(response.body)['message']);
+  }
   return Hotel.fromJson(jsonDecode(response.body));
 }
