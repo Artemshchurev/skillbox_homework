@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotels/views/hotel_view.dart';
 import 'package:hotels/views/home_view.dart';
 
 void main() {
@@ -14,9 +15,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => HomeView(),
+      home: HomeView(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case HotelView.routeName:
+            final args = settings.arguments as Map<String,String>;
+            return MaterialPageRoute(builder: (BuildContext context) {
+              return HotelView(uuid: args['uuid']);
+            });
+            break;
+          default:
+            return null;
+        }
       },
     );
   }
