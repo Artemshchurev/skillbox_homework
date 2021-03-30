@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           case HotelView.routeName:
             final args = settings.arguments as Map<String,String>;
             return MaterialPageRoute(builder: (BuildContext context) {
-              return HotelView(uuid: args['uuid']);
+              return HotelView(uuid: args['uuid'], name: args['name'],);
             });
             break;
           default:

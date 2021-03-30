@@ -44,6 +44,7 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
+      backgroundColor: Colors.grey.shade300,
       body: FutureBuilder(
         future: _fetchHotels,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -66,10 +67,11 @@ class _HomeViewState extends State<HomeView> {
                 primary: false,
                 slivers: <Widget>[
                   SliverPadding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(5),
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: isGrid ? 2 : 1
+                        crossAxisCount: isGrid ? 2 : 1,
+                        childAspectRatio: isGrid ? 1 : 1.7
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
@@ -78,21 +80,32 @@ class _HomeViewState extends State<HomeView> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
+                            elevation: 7,
                             clipBehavior: Clip.antiAlias,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Container(
-                                  height: isGrid ? 110 : 300,
-                                  child: Image.asset(
-                                    'assets/images/${hotel.poster}',
-                                  ),
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/images/${hotel.poster}'),
+                                        fit: BoxFit.cover
+                                      )
+                                    ),
+                                  )
                                 ),
                                 if (isGrid)
-                                  Expanded(
+                                  Container(
+                                    height: 40,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 5),
-                                      child: Text(hotel.name),
+                                      child: Text(
+                                        hotel.name,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis
+                                      ),
                                     ),
                                   ),
                                 if (isGrid)
@@ -105,6 +118,7 @@ class _HomeViewState extends State<HomeView> {
                                             HotelView.routeName,
                                             arguments: {
                                               'uuid': hotel.uuid,
+                                              'name': hotel.name,
                                             }
                                         );
                                       },
@@ -118,36 +132,48 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                   ),
                                 if (!isGrid)
-                                  Expanded(
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 10),
-                                          child: Text(hotel.name),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                                            child: Text(
+                                              hotel.name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              // overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(right: 10),
-                                          child: RaisedButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pushNamed(
-                                                  HotelView.routeName,
-                                                  arguments: {
-                                                    'uuid': hotel.uuid,
-                                                  }
-                                              );
-                                            },
-                                            child: Text(
-                                              'Подробнее',
-                                              style: TextStyle(
-                                                color: Colors.white,
+                                          child: Container(
+                                            width: 120,
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pushNamed(
+                                                    HotelView.routeName,
+                                                    arguments: {
+                                                      'uuid': hotel.uuid,
+                                                      'name': hotel.name,
+                                                    }
+                                                );
+                                              },
+                                              child: Text(
+                                                'Подробнее',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
                                               ),
+                                              color: Theme.of(context).accentColor,
                                             ),
-                                            color: Theme.of(context).accentColor,
                                           ),
                                         ),
                                       ],
-                                    )
+                                    ),
                                   )
                               ],
                             ),

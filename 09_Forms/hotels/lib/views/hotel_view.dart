@@ -6,18 +6,20 @@ import 'package:hotels/models/hotel.dart';
 class HotelView extends StatefulWidget {
   static const String routeName = '/hotel';
   final String uuid;
+  final String name;
 
-  HotelView({Key key, this.uuid}) : super(key: key);
+  HotelView({Key key, this.uuid, this.name}) : super(key: key);
 
   @override
-  _HotelViewState createState() => _HotelViewState(uuid);
+  _HotelViewState createState() => _HotelViewState(uuid, name);
 }
 
 class _HotelViewState extends State<HotelView> {
   Future<Hotel> _fetchHotel;
   final String uuid;
+  final String name;
 
-  _HotelViewState(this.uuid);
+  _HotelViewState(this.uuid, this.name);
 
   @override
   void initState() {
@@ -28,7 +30,9 @@ class _HotelViewState extends State<HotelView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(name),
+      ),
       body: FutureBuilder(
         future: _fetchHotel,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
