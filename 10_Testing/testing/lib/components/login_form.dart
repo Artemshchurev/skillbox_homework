@@ -20,6 +20,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: <Widget>[
           TextFormField(
+            key: Key('loginEmail'),
             validator: (value) {
               if (value == '') return 'Введите email';
               if (!validateEmail(value))
@@ -30,6 +31,7 @@ class _LoginFormState extends State<LoginForm> {
             decoration: InputDecoration(labelText: 'Email'),
           ),
           TextFormField(
+            key: Key('loginPhone'),
             validator: (value) {
               if (value == '') return 'Введите телефон';
               return null;
@@ -41,6 +43,7 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           RaisedButton(
+            key: Key('loginSubmit'),
             child: Text('Отправить'),
             onPressed: () {
               if (_formKey.currentState.validate()) {
