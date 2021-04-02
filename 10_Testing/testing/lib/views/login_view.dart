@@ -57,6 +57,7 @@ class _LoginViewState extends State<LoginView> {
                           : 'Уже есть аккаунт?',
                     ),
                     FlatButton(
+                      key: Key('screenSwitch'),
                       child: RichText(
                         text: TextSpan(children: [
                           TextSpan(
