@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "193610127349",
+    "project_id": "skillboxfirebasehomework11",
+    "storage_bucket": "skillboxfirebasehomework11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193610127349:android:7ea3caed47695a4602b2bc",
+        "android_client_info": {
+          "package_name": "com.example.firebase_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193610127349-2f4mamg8r59gg5ir9mtuc9dh61g2quu3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSTaaWvQUramC9kkFG9pGCBnPANvHDr4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193610127349-2f4mamg8r59gg5ir9mtuc9dh61g2quu3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
