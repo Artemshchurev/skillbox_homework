@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_project/views/profile_view.dart';
+import 'package:firebase_project/views/signin_view.dart';
+import 'package:firebase_project/views/signup_view.dart';
 import 'package:flutter/material.dart';
 
-import './views/todo_view.dart';
+import './views/todos_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +23,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case SignInView.routeName:
+            return MaterialPageRoute(builder: (BuildContext context) => SignInView());
+          case SignUpView.routeName:
+            return MaterialPageRoute(builder: (BuildContext context) => SignUpView());
+          case ProfileView.routeName:
+            return MaterialPageRoute(builder: (BuildContext context) => ProfileView());
+          case TodosView.routeName:
+            return MaterialPageRoute(builder: (BuildContext context) => TodosView());
+          default:
+            return null;
+        }
+
+      },
       home: FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -30,7 +49,15 @@ class MyApp extends StatelessWidget {
             );
 
           if (snapshot.connectionState == ConnectionState.done)
-            return TodoView();
+            return StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                if (snapshot.hasData) {
+                  return ProfileView();
+                }
+                return SignInView();
+              }
+            );
 
           return Scaffold(
             body: Center(
