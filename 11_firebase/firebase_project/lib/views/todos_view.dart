@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_project/services/auth_service.dart';
 import 'package:firebase_project/views/profile_view.dart';
+import 'package:firebase_project/views/todo_view.dart';
 import 'package:flutter/material.dart';
 
 class TodosView extends StatefulWidget {
@@ -15,7 +16,8 @@ class TodosView extends StatefulWidget {
 class _TodosViewState extends State<TodosView> {
   final TextEditingController _textController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final CollectionReference _todos = FirebaseFirestore.instance.collection('todos');
+  final CollectionReference _todos =
+      FirebaseFirestore.instance.collection('todos');
   final AuthService _authService = AuthService();
 
   void _saveTodo() async {
@@ -96,34 +98,42 @@ class _TodosViewState extends State<TodosView> {
                   if (snapshot.hasData)
                     ...snapshot.data.docs
                         .map((todo) => Dismissible(
-                            key: Key(todo.id),
-                            background: Container(
-                              color: Colors.red,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: Text(
-                                  'Удалить',
-                                  style: TextStyle(
-                                    color: Colors.white,
+                              key: Key(todo.id),
+                              background: Container(
+                                color: Colors.red,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: Text(
+                                    'Удалить',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
+                                alignment: Alignment.centerRight,
                               ),
-                              alignment: Alignment.centerRight,
-                            ),
-                            direction: DismissDirection.endToStart,
-                            onDismissed: (direction) {
-                              _todos.doc(todo.id).delete();
-                            },
-                            child: ListTile(
-                              title: Text(todo['title']),
-                              trailing: Checkbox(
-                                onChanged: (bool value) {
-                                  _setIsDone(todo.id, value);
+                              direction: DismissDirection.endToStart,
+                              onDismissed: (direction) {
+                                _todos.doc(todo.id).delete();
+                              },
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    TodoView.routeName,
+                                    arguments: {
+                                      'id': todo.id,
+                                    }
+                                  );
                                 },
-                                value: todo['isDone'],
+                                title: Text(todo['title']),
+                                trailing: Checkbox(
+                                  onChanged: (bool value) {
+                                    _setIsDone(todo.id, value);
+                                  },
+                                  value: todo['isDone'],
+                                ),
                               ),
-                            ),
-                          ))
+                            ))
                         .toList()
                 ],
               );

@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_project/views/profile_view.dart';
 import 'package:firebase_project/views/signin_view.dart';
 import 'package:firebase_project/views/signup_view.dart';
+import 'package:firebase_project/views/todo_view.dart';
+import 'package:firebase_project/views/todos_view.dart';
 import 'package:flutter/material.dart';
-
-import './views/todos_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (BuildContext context) => SignUpView());
           case ProfileView.routeName:
             return MaterialPageRoute(builder: (BuildContext context) => ProfileView());
+          case TodoView.routeName:
+            final args = settings.arguments as Map<String,String>;
+            return MaterialPageRoute(builder: (BuildContext context) => TodoView(args['id']));
           case TodosView.routeName:
             return MaterialPageRoute(builder: (BuildContext context) => TodosView());
           default:
